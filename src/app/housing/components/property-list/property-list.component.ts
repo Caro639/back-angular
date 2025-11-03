@@ -10,12 +10,13 @@ import { HousingPropertyPreview } from "../../models/housing-property";
   selector: "app-property-list",
   imports: [PropertyListCardComponent, AsyncPipe],
   template: `
+    @let properties = properties$ | async;
     <main class="property-list">
       <div class="property-grid">
-        @for (preview of properties$ | async;
-        track preview.id) {
+        @for (property of properties; track
+        property.id) {
         <app-property-list-card
-          [property]="preview"
+          [property]="property"
         />
         }
       </div>
