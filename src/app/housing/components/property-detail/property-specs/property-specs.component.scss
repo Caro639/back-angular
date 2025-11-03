@@ -1,0 +1,43 @@
+.property-specs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+  padding: 1.5rem;
+  background-color: var(--surface);
+  border-radius: 8px;
+}
+
+.spec-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.spec-item .label {
+  color: var(--on-surface);
+  font-size: 0.9rem;
+}
+
+.spec-item .value {
+  color: var(--on-background);
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.property-description {
+  margin-bottom: 3rem;
+  white-space: pre-line;
+}
+
+.property-description h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--primary);
+}
+
+.property-description p {
+  color: var(--on-surface);
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}

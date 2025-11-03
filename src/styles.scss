@@ -1,0 +1,105 @@
+:root {
+  --background: #121212;
+  --surface: #1e1e1e;
+  --surface-light: #2a2a2a;
+  --primary: #bb86fc;
+  --secondary: #03dac6;
+  --on-background: #ffffff;
+  --on-surface: #e1e1e1;
+  --overlay: rgba(0, 0, 0, 0.5);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--background);
+  color: var(--on-background);
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--overlay);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal {
+  background-color: var(--surface);
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 500px;
+  width: 90%;
+  transform: translateY(-20px);
+  transition: transform 0.3s ease;
+  position: relative;
+}
+
+.modal-overlay.active .modal {
+  transform: translateY(0);
+}
+
+.modal-header {
+  margin-bottom: 1.5rem;
+}
+
+.modal-title {
+  color: var(--primary);
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.modal-content {
+  color: var(--on-surface);
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.modal-button {
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+  border: none;
+  text-decoration: none;
+}
+
+.modal-button.primary {
+  background-color: var(--primary);
+  color: var(--background);
+}
+
+.modal-button.secondary {
+  background-color: var(--surface-light);
+  color: var(--on-surface);
+}
+
+.modal-button:hover {
+  opacity: 0.9;
+}

@@ -1,0 +1,91 @@
+.property-details {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 2rem;
+}
+
+.property-hero {
+  margin: -2rem -2rem 2rem -2rem;
+  height: 500px;
+  overflow: hidden;
+  position: relative;
+}
+
+.property-hero-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.offer-made-banner {
+  position: absolute;
+  top: 2rem;
+  right: -2rem;
+  background-color: var(--primary);
+  color: var(--background);
+  padding: 0.5rem 2rem;
+  transform: rotate(45deg);
+  font-size: 1rem;
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.property-content {
+  background-color: var(--surface-light);
+  border-radius: 12px;
+  padding: 2rem;
+}
+
+.property-header {
+  margin-bottom: 2rem;
+}
+
+.property-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: var(--on-background);
+}
+
+.property-header .price {
+  font-size: 1.5rem;
+  color: var(--secondary);
+  font-weight: 600;
+}
+
+.make-offer-button {
+  display: inline-block;
+  background-color: var(--primary);
+  color: var(--background);
+  text-decoration: none;
+  padding: 1rem 2rem;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: opacity 0.3s ease;
+  cursor: pointer;
+}
+
+.make-offer-button:hover {
+  opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+  .property-hero {
+    height: 300px;
+  }
+
+  .property-header h1 {
+    font-size: 2rem;
+  }
+
+  .property-specs {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .offer-made-banner {
+    font-size: 0.875rem;
+    padding: 0.375rem 1.5rem;
+    top: 1.5rem;
+    right: -1.5rem;
+  }
+}
