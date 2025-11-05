@@ -1,25 +1,29 @@
-import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component } from "@angular/core";
+import { inject } from "@angular/core";
+import { Router } from "@angular/router";
+import { ModalService } from "../../layout/services/modal.service";
 
 @Component({
-  selector: 'app-error-modal',
-  imports: [
-    RouterLink
-  ],
+  selector: "app-error-modal",
   template: `
-		<div class="modal-overlay" id="errorModal">
-			<div class="modal">
-				<div class="modal-header">
-					<h2 class="modal-title">Error</h2>
-				</div>
-				<div class="modal-content">
-					<p id="errorMessage">An error occurred while processing your request. Please try again later.</p>
-				</div>
-				<div class="modal-actions">
-					<a routerLink="/housing" class="modal-button primary">Return to Properties</a>
-				</div>
-			</div>
-		</div>
+    <div class="modal-overlay" id="errorModal">
+      <div class="modal">
+        <div class="modal-header">
+          <h2 class="modal-title">Error</h2>
+        </div>
+        <div class="modal-content">
+          <p id="errorMessage">
+            An error occurred while processing your request. Please try again
+            later.
+          </p>
+        </div>
+        <div class="modal-actions">
+          <a class="modal-button primary" (click)="onClose()"
+            >Return to Properties</a
+          >
+        </div>
+      </div>
+    </div>
   `,
   styles: `
     .modal {
@@ -75,8 +79,14 @@ import { RouterLink } from '@angular/router';
     .modal-button:hover {
       opacity: 0.9;
     }
-  `
+  `,
 })
 export class ErrorModalComponent {
+  private modalService = inject(ModalService);
+  private router = inject(Router);
 
+  onClose() {
+    this.modalService.toggleErrorModal();
+    this.router.navigate(["/housing"]);
+  }
 }
