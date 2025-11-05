@@ -1,26 +1,37 @@
-import { Component, input } from "@angular/core";
+import { Component, input, output } from "@angular/core";
 import { CurrencyPipe } from "@angular/common";
 import { HousingPropertyPreview } from "../../../../models/housing-property";
+import { FavouriteButtonComponent } from "./favourite-button/favourite-button.component";
 
 @Component({
   selector: "app-property-list-card-details",
-  imports: [CurrencyPipe],
+  imports: [CurrencyPipe, FavouriteButtonComponent],
   template: `
-    <h2>{{ property().title }}</h2>
+    <div class="title">
+      <h2>{{ property().title }}</h2>
+      <app-favourite-button
+        [favourite]="property().favourite"
+        (toggled)="onToggleFavourite()"
+      />
+    </div>
     <div class="property-details">
       <span class="price">{{
-        property().price
-          | currency : "EUR" : "symbol" : "4.0-0"
+        property().price | currency : "EUR" : "symbol" : "4.0-0"
       }}</span>
-      <span class="surface"
-        >{{ property().surface }}m²</span
-      >
-      <span class="city">{{
-        property().city
-      }}</span>
+      <span class="surface">{{ property().surface }}m²</span>
+      <span class="city">{{ property().city }}</span>
     </div>
   `,
   styles: `
+    .title {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    app-favourite-button {
+      transform: translateY(0.3rem);
+    }
+
     .property-details {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -50,6 +61,10 @@ import { HousingPropertyPreview } from "../../../../models/housing-property";
     }`,
 })
 export class PropertyListCardDetailsComponent {
-  property =
-    input.required<HousingPropertyPreview>();
+  property = input.required<HousingPropertyPreview>();
+  favouriteToggled = output<void>();
+
+  onToggleFavourite() {
+    this.favouriteToggled.emit();
+  }
 }

@@ -6,7 +6,8 @@ export type HousingPropertyPreview = {
   surface: number;
   city: string;
   offerMade: boolean;
-}
+  favourite: boolean;
+};
 
 export type HousingPropertyDetails = {
   bedrooms: number;
@@ -14,6 +15,7 @@ export type HousingPropertyDetails = {
   description: string;
   fullImageUrl: string;
   features: string[];
-}
+};
 
-export type HousingPropertyWithDetails = HousingPropertyPreview & HousingPropertyDetails;
+export type HousingPropertyWithDetails = HousingPropertyPreview &
+  HousingPropertyDetails;

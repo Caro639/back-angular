@@ -46,4 +46,11 @@ export class HousingService {
       )
       .pipe(map((response) => response.sold));
   }
+
+  toggleFavourite(id: string): Observable<void> {
+    return this.http.post<void>(
+      `http://localhost:3030/api/properties/${id}/favourite`,
+      {}
+    );
+  }
 }

@@ -1,7 +1,4 @@
-import {
-  ApplicationConfig,
-  provideZoneChangeDetection,
-} from "@angular/core";
+import { ApplicationConfig, provideZoneChangeDetection } from "@angular/core";
 import {
   provideRouter,
   withComponentInputBinding,
@@ -10,6 +7,8 @@ import {
 
 import { routes } from "./app.routes";
 import { provideHttpClient } from "@angular/common/http";
+import { withInterceptors } from "@angular/common/http";
+import { tokenInterceptor } from "./core/auth/token.interceptor";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -23,6 +22,6 @@ export const appConfig: ApplicationConfig = {
         scrollPositionRestoration: "enabled",
       })
     ),
-    provideHttpClient(),
+    provideHttpClient(withInterceptors([tokenInterceptor])),
   ],
 };

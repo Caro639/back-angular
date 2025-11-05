@@ -2,9 +2,11 @@ import { Component, inject } from "@angular/core";
 import { PropertyListCardComponent } from "./property-list-card/property-list-card.component";
 // import { DUMMY_PROPERTIES } from "../../test-data/DUMMY_PROPERTIES";
 import { HousingService } from "../../services/housing.service";
-import { Observable } from "rxjs";
+// import { Observable } from "rxjs";
 import { AsyncPipe } from "@angular/common";
-import { HousingPropertyPreview } from "../../models/housing-property";
+import { Router } from "@angular/router";
+import { startWith, Subject, switchMap, tap } from "rxjs";
+// import { HousingPropertyPreview } from "../../models/housing-property";
 
 @Component({
   selector: "app-property-list",
@@ -13,10 +15,11 @@ import { HousingPropertyPreview } from "../../models/housing-property";
     @let properties = properties$ | async;
     <main class="property-list">
       <div class="property-grid">
-        @for (property of properties; track
-        property.id) {
+        @for (property of properties; track property.id) {
         <app-property-list-card
           [property]="property"
+          (cardClicked)="onCardClicked($event)"
+          (favouriteToggled)="onFavouriteToggled($event)"
         />
         }
       </div>
@@ -31,12 +34,26 @@ import { HousingPropertyPreview } from "../../models/housing-property";
   `,
 })
 export class PropertyListComponent {
-  private housingService: HousingService = inject(
-    HousingService
+  private housingService: HousingService = inject(HousingService);
+  private router = inject(Router);
+  private refresh$ = new Subject<number>();
+  properties$ = this.refresh$.pipe(
+    startWith(Date.now()),
+    switchMap(() => this.housingService.getAllProperties())
   );
-  properties$: Observable<
-    HousingPropertyPreview[]
-  > = this.housingService.getAllProperties();
-  // protected readonly DUMMY_PROPERTIES =
-  //   DUMMY_PROPERTIES;
+
+  onCardClicked(property: { id: string }) {
+    this.router.navigate(["/housing", property.id]);
+  }
+
+  onFavouriteToggled(property: { id: string }) {
+    this.housingService
+      .toggleFavourite(property.id)
+      .pipe(tap(() => this.refreshProperties()))
+      .subscribe();
+  }
+
+  private refreshProperties() {
+    this.refresh$.next(Date.now());
+  }
 }
